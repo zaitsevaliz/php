@@ -1,73 +1,50 @@
 <?php
 //Задание 1
-do{
-    $answer = (int)readline("В каком году произошло крещение Руси? Варианты: 810, 988 или 740 год.");
-} while ($answer!=810 && $answer!=988 && $answer!=740);
-if($answer===988){
-    echo ("Это правильный ответ!");
-} else{
-    echo("Это неправильный ответ!");
+$arr1=[1,2,3,4,5,6,7,8,9,10];
+$arr2=[4,1,8,4,3,9,1,7,3,2];
+$arr3=[];
+foreach($arr1 as $index => $numberfrom1){
+    foreach ($arr2 as $index => $numberfrom2){
+        $arr3[$index]=$arr1[$index]*$arr2[$index];
+    }
 }
+print_r($arr3);
 //Задание 2
-define("TASK", "Какая задача стоит перед вами сегодня? ");
-define("TIMING", "Сколько примерно времени эта задача займет? ");
-$str = "";
-$sum = 0;
-$n=(int)readline("Введите количество задач, запланированных на день ");
-for ($i=1; $i<=$n; $i++){
-$task=readline(TASK);
-$str .= "$i: $task ";
-$timing=(int)readline(TIMING);
-$str .= "(${timing}ч)\n";
-$sum+=$timing;
+$wishes=[
+    'счастья',
+    'здоровья',
+    'настроения',
+    'терпения',
+    'воображения'
+];
+$epithets=[
+    'бесконечного',
+    'крепкого',
+    'замечательного',
+    'космического',
+    'безудержного'
+];
+$str='';
+$name=readline("Ваше имя: ");
+$s=readline("Введите ваш пол: м или ж: ");
+for($i=1; $i<=3; $i++){
+    $epithetkey = array_rand($epithets, $num = 1);
+    $epithet=$epithets[$epithetkey];
+    $wishkey = array_rand($wishes, $num = 1);
+    $wish=$wishes[$wishkey];
+
+    if($i==1){
+        $str.="$epithet $wish, ";
+    } elseif ($i==3){
+        $str.=" и $epithet $wish!";
+    } else{
+        $str.= "$epithet $wish";
+    }
+    unset($epithets[$epithetkey]);
+    unset($wishes[$wishkey]);
 }
-echo("Запланированных задач на сегодня - $n\n");
-echo($str);
-echo("Примерное время выполнения плана = ${sum}ч");
-//Задание 3
-$c=(int)readline("Введите число ");
-$r=$c%8;
-switch (true){
-    case $r == 1:
-        $finger = 1;
-        break;
-    case $r == 0 || $r == 2:
-        $finger = 2;
-        break;
-    case $r == 3 || $r == 7:
-        $finger = 3;
-        break;
-    case $r == 4 || $r == 6:
-        $finger = 4;
-        break;
-    case $r == 5:
-        $finger = 5;
-        break;
+if ($s === 'м'){
+    echo "Дорогой $name, от всего сердца поздравляю тебя с днем рождения, желаю $str";
+} else{
+    echo "Дорогая $name, от всего сердца поздравляю тебя с днем рождения, желаю $str";
 }
-echo($finger);
-// switch ($r){
-//     case 0:
-//         $finger = 2;
-//         break;
-//     case 1:
-//         $finger = 1;
-//         break;
-//     case 2:
-//         $finger = 2;
-//         break;
-//     case 3:
-//         $finger = 3;
-//         break;
-//     case 4:
-//         $finger = 4;
-//         break;
-//     case 5:
-//         $finger = 5;
-//         break;
-//     case 6:
-//         $finger = 4;
-//         break;
-//     case 7:
-//         $finger = 3;
-//         break;
-// }
