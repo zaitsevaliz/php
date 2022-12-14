@@ -8,7 +8,11 @@ foreach($arr1 as $index => $numberfrom1){
         $arr3[$index]=$arr1[$index]*$arr2[$index];
     }
 }
-print_r($arr3);
+// for ($i = 0; $i < sizeof($arr1); $i++) {
+//     $arr3 = $arr1[$i] * $arr2[$i];
+// }
+
+// print_r($arr3);
 //Задание 2
 $wishes=[
     'счастья',
@@ -28,9 +32,9 @@ $str='';
 $name=readline("Ваше имя: ");
 $s=readline("Введите ваш пол: м или ж: ");
 for($i=1; $i<=3; $i++){
-    $epithetkey = array_rand($epithets, $num = 1);
+    $epithetkey = array_rand($epithets);
     $epithet=$epithets[$epithetkey];
-    $wishkey = array_rand($wishes, $num = 1);
+    $wishkey = array_rand($wishes);
     $wish=$wishes[$wishkey];
 
     if($i==1){
