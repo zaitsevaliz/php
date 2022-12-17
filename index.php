@@ -1,54 +1,20 @@
 <?php
 //Задание 1
-$arr1=[1,2,3,4,5,6,7,8,9,10];
-$arr2=[4,1,8,4,3,9,1,7,3,2];
-$arr3=[];
-foreach($arr1 as $index => $numberfrom1){
-    foreach ($arr2 as $index => $numberfrom2){
-        $arr3[$index]=$arr1[$index]*$arr2[$index];
-    }
-}
-// for ($i = 0; $i < sizeof($arr1); $i++) {
-//     $arr3 = $arr1[$i] * $arr2[$i];
-// }
-
-// print_r($arr3);
+$arr = [4, 5, 1, 4, 7, 8, 15, 6, 71, 45, 2];
+$func = function (int $number){
+    if($number & 1) return $number = 'нечётное';
+    else return $number = 'чётное';
+};
+$result = array_map($func, $arr);
+print_r($result);
 //Задание 2
-$wishes=[
-    'счастья',
-    'здоровья',
-    'настроения',
-    'терпения',
-    'воображения'
-];
-$epithets=[
-    'бесконечного',
-    'крепкого',
-    'замечательного',
-    'космического',
-    'безудержного'
-];
-$str='';
-$name=readline("Ваше имя: ");
-$s=readline("Введите ваш пол: м или ж: ");
-for($i=1; $i<=3; $i++){
-    $epithetkey = array_rand($epithets);
-    $epithet=$epithets[$epithetkey];
-    $wishkey = array_rand($wishes);
-    $wish=$wishes[$wishkey];
-
-    if($i==1){
-        $str.="$epithet $wish, ";
-    } elseif ($i==3){
-        $str.=" и $epithet $wish!";
-    } else{
-        $str.= "$epithet $wish";
-    }
-    unset($epithets[$epithetkey]);
-    unset($wishes[$wishkey]);
+$array = [4,7,2,5,7,7];
+function numbers(array $array):array {
+    return
+    [
+        'max'=> max($array),
+        'min'=> min($array),
+        'avg'=> array_sum($array)/count($array),
+    ];
 }
-if ($s === 'м'){
-    echo "Дорогой $name, от всего сердца поздравляю тебя с днем рождения, желаю $str";
-} else{
-    echo "Дорогая $name, от всего сердца поздравляю тебя с днем рождения, желаю $str";
-}
+print_r(numbers($array));
