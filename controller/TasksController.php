@@ -31,11 +31,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'done'){
     die();
 }
 
+
+
 $tasks = $taskProvider->getUndoneList();
-// //не нужно
-// $tasks = [
-//     'Погулять с собакой',
-//     'Починить компьютер'
-// ];
 
 include "view/tasks.php";
