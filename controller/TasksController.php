@@ -2,7 +2,9 @@
 require_once 'model/User.php';
 require_once 'model/Task.php';
 require_once 'model/TaskProvider.php';
+
 session_start();
+$pdo = require 'db.php';
 $username = null;
 
 if (isset($_SESSION['username'])){
@@ -16,10 +18,15 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     session_destroy();
 }
 
-$taskProvider = new TaskProvider();
+$taskProvider = new TaskProvider($pdo);
+$userId = $_SESSION['username']->getId(); //id из сессии
+// echo 'id ' . $userId;
+
 if (isset($_GET['action']) && $_GET['action'] === 'add'){
     $taskText = strip_tags($_POST['task']);
-    $taskProvider->addTask(new Task($taskText));
+    if ($taskText) {
+        $taskProvider->addTask(new Task($taskText), $userId);
+    }
     header("Location: /?controller=tasks");
     die();
 }
@@ -33,6 +40,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'done'){
 
 
 
-$tasks = $taskProvider->getUndoneList();
+$tasks = $taskProvider->getUndoneList($userId);
 
 include "view/tasks.php";

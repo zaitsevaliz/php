@@ -18,8 +18,8 @@
     <?php if (!empty($tasks)): ?>
         <?php foreach ($tasks as $key => $task): ?>
             <div>
-            - <?=$task->getDescription()?>
-            <a href="/?controller=tasks&action=done&key=<?=$key?>">X</a><br>
+            - <?=$task['description']?>
+            <a href="/?controller=tasks&action=done&key=<?=$task['id']?>">X</a><br>
             </div>
         <?php endforeach; ?>
     <?php else: ?>
