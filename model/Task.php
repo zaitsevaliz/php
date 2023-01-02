@@ -3,10 +3,11 @@ class Task
 {
     private string $description;
     private bool $isDone = false;
-
+    // private User $userid;
     public function __construct(string $description)
     {
         $this->description = $description;
+
     }
 
     public function getDescription(): string 
@@ -28,4 +29,9 @@ class Task
     {
         $this->isDone=$isDone;
     }
+
+    // public function getUserId():  int
+    // {
+    //     return $this->userid;
+    // }
 }

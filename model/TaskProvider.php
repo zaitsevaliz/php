@@ -2,30 +2,54 @@
 
 class TaskProvider
 {
-    private array $tasks;
-    public function __construct()
+    // private array $tasks;
+    private PDO $pdo;
+
+    public function __construct(PDO $pdo)
     {
-        $this->tasks = $_SESSION['tasks'] ?? [];
+        // $this->tasks = $_SESSION['tasks'] ?? [];
+        $this->pdo = $pdo;
     }
 
-    public function getUndoneList(): array
+    public function getUndoneList($userId): array
     {
-        $tasks = [];
-        foreach ($this->tasks as $key => $task){
-            if (!$task->isDone()){
-                $tasks[$key] = $task;
-            }
-        }
+        // $tasks = [];
+        $statement = $this->pdo->prepare('SELECT * FROM `tasks` WHERE `userid` = :userId');
+        $statement->execute([
+            'userId' => $userId, //$userId
+        ]);
+
+        $tasks = $statement->fetchAll(); 
+      
         return $tasks;
     }
-    public function addTask(Task $task): void 
+    public function addTask(Task $task, int $userId): void 
     {
-        $_SESSION['tasks'][] = $task;
-        $this->tasks[] = $task;
+        //insert в бд эту таск
+        $statement = $this->pdo->prepare(
+            'INSERT INTO tasks (userId, description, isDone) VALUES (:userId, :description, :isDone)' 
+        );
+ 
+        $statement->execute([
+            'userId' => $userId,
+            'description' => $task->getDescription(),
+            'isDone' => 0
+        ]);
+        // $_SESSION['tasks'][] = $task;
+        // $this->tasks[] = $task;
     } 
-    public function deleteTask(int $key): void 
+    public function deleteTask(int $id): void 
     {
-        unset($_SESSION['tasks'][$key]);
-        unset($this->tasks[$key]);
+        //deletetask(айди в бд)
+        //и во вью task выводим не ключ а айди
+        $statement = $this->pdo->prepare(
+            'DELETE FROM `tasks` WHERE `id` = :id'
+        );
+        $statement->execute([
+            'id' => $id,
+        ]);
+
+        // unset($_SESSION['tasks'][$key]);
+        // unset($this->tasks[$key]);
     }
 }
