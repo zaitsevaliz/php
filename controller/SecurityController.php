@@ -16,6 +16,7 @@ if(isset($_POST['username'], $_POST['password'])){
         $error = 'Пользователь с указанными данными не найден';
     } else{
         $_SESSION['username'] = $user;
+        $_SESSION['user_id'] = $user->getId();
         header("Location: index.php");
         die();
     }

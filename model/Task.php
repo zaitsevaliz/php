@@ -1,13 +1,14 @@
 <?php
 class Task 
 {
+    private int $id;
     private string $description;
-    private bool $isDone = false;
-    // private User $userid;
-    public function __construct(string $description)
+    private bool $isDone;
+    
+    public function __construct(string $description='', bool $isDone = false)
     {
         $this->description = $description;
-
+        $this->isDone = $isDone;
     }
 
     public function getDescription(): string 
@@ -29,6 +30,11 @@ class Task
     {
         $this->isDone=$isDone;
     }
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
 
     // public function getUserId():  int
     // {

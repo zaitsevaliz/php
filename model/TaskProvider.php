@@ -11,27 +11,28 @@ class TaskProvider
         $this->pdo = $pdo;
     }
 
-    public function getUndoneList($userId): array
+    public function getUndoneList(): array
     {
         // $tasks = [];
         $statement = $this->pdo->prepare('SELECT * FROM `tasks` WHERE `userid` = :userId');
         $statement->execute([
-            'userId' => $userId, //$userId
+            'userId' => $_SESSION['user_id'], //$userId
         ]);
 
-        $tasks = $statement->fetchAll(); 
-      
+        // $tasks = $statement->fetchAll();
+        $tasks = $statement->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Task::class);  
+
         return $tasks;
     }
-    public function addTask(Task $task, int $userId): void 
+    public function addTask(Task $task): bool 
     {
         //insert в бд эту таск
         $statement = $this->pdo->prepare(
             'INSERT INTO tasks (userId, description, isDone) VALUES (:userId, :description, :isDone)' 
         );
  
-        $statement->execute([
-            'userId' => $userId,
+        return $statement->execute([
+            'userId' => $_SESSION['user_id'],
             'description' => $task->getDescription(),
             'isDone' => 0
         ]);
